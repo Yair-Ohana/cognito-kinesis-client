@@ -7,4 +7,5 @@ export const secrets = {
   userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
   identityPoolId: process.env.REACT_APP_COGNITO_IDENTITY_POOL_ID,
   useTrickleICE: false,
+  forceTURN: true,
 };

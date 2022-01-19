@@ -244,7 +244,7 @@ async function postViewerLogin(
 
   // Send any ICE candidates to the other peer
   viewer.peerConnection.addEventListener("icecandidate", ({ candidate }) => {
-    if (false) {
+    if (candidate) {
       console.log("[VIEWER] Generated ICE candidate");
 
       // When trickle ICE is enabled, send the ICE candidates as they are generated.
@@ -268,10 +268,9 @@ async function postViewerLogin(
 
   // As remote tracks are received, add them to the remote view
   viewer.peerConnection.addEventListener("track", (event) => {
+    console.log({ event });
     console.log("[VIEWER] Received remote track");
-    if (remoteView.srcObject) {
-      return;
-    }
+
     viewer.remoteStream = event.streams[0];
     remoteView.srcObject = viewer.remoteStream;
   });
