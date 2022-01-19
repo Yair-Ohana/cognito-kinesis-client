@@ -10,10 +10,18 @@
     "@types/node": "^16.11.19",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+    "@types/styled-components": "^5.1.20",
+    "amazon-cognito-identity-js": "^5.2.4",
+    "amazon-kinesis-video-streams-webrtc": "^1.0.8",
+    "aws-sdk": "^2.1058.0",
+    "cross-fetch": "^3.1.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "styled-components": "^5.3.3",
     "typescript": "^4.5.4",
+    "util": "^0.12.4",
     "web-vitals": "^2.1.3"
   },
   "scripts": {
