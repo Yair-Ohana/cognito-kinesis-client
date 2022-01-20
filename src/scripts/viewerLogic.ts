@@ -71,15 +71,7 @@ function getCredential(callback, err) {
   }
 }
 
-async function postViewerLogin(
-  localView,
-  remoteView,
-  onStatsReport,
-  onRemoteDataMessage
-) {
-  viewer.localView = localView;
-  viewer.remoteView = remoteView;
-
+async function postViewerLogin() {
   // Create KVS client
   const kinesisVideoClient = new AWS.KinesisVideo({
     region: secrets.region,
@@ -177,12 +169,6 @@ async function postViewerLogin(
     };
   }
 
-  // Poll for connection stats
-  viewer.peerConnectionStatsInterval = setInterval(
-    () => viewer.peerConnection.getStats().then(onStatsReport),
-    1000
-  );
-
   viewer.signalingClient.on("open", async () => {
     console.log("[VIEWER] Connected to signaling service");
 
@@ -197,7 +183,6 @@ async function postViewerLogin(
         .forEach((track) =>
           viewer.peerConnection.addTrack(track, viewer.localStream)
         );
-      //localView.srcObject = viewer.localStream;
     } catch (e) {
       console.error("[VIEWER] Could not find webcam");
       return;
@@ -266,13 +251,12 @@ async function postViewerLogin(
     }
   });
 
+  const videoTag = document.getElementsByClassName("videoTagViewer");
   // As remote tracks are received, add them to the remote view
   viewer.peerConnection.addEventListener("track", (event) => {
-    console.log({ event });
     console.log("[VIEWER] Received remote track");
 
-    viewer.remoteStream = event.streams[0];
-    remoteView.srcObject = viewer.remoteStream;
+    videoTag[0].srcObject = event.streams[0];
   });
 
   console.log("[VIEWER] Starting viewer connection");
